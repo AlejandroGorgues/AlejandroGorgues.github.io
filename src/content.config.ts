@@ -79,7 +79,7 @@ const link = defineCollection({
     const data = JSON.parse(file);
     
     // Devuelve un array de objetos con id
-    return data.map((link) => ({
+    return data.map((link: { url: any; title: any; tags: string; }) => ({
       id: link.url,
       title: link.title,
       url: link.url,
