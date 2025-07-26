@@ -25,7 +25,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 23.1.0
       - name: Install dependencies
         run: npm ci  # o `npm install` si no usas package-lock.json
 
