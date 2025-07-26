@@ -1,0 +1,24 @@
+---
+title: Markdown - Snippets
+pubDate: 2025-05-02
+modDate: 2025-05-02
+description: <PostDescription>Some concepts to improve markdown</PostDescription>
+image:
+    url: '/post/MarkdownLogo.svg'
+    alt: 'MarkdownLogo'
+tags: ["Markdown"]
+---
+## White spaces in markdown
+If you want to add horizontal white space equivalent you can add different HTML entities before or between the phrase
+as mentioned in the StackOverflow [answer](https://stackoverflow.com/a/57057458) written by [Janosh](https://stackoverflow.com/users/4034025/janosh):
+* `&nbsp;` for basic white space.
+* `&ensp;` for white space equivalent to N letter.
+* `&emsp;` for white space equivalent to M letter.
+* `&thinsp;` for a smaller white space.
+
+```markdown
+<!-- You can stack as many html entities as you want.
+For example, This add three spaces to the left.-->
+&nbsp;&nbsp;&nbsp;Example text.
+```
+Take into account that except for `&nbsp;` all entities allow to be broken if content is above the container size.

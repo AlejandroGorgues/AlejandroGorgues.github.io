@@ -1,0 +1,55 @@
+---
+title: HTML - Snippets
+pubDate: 2025-04-30
+modDate: 2025-04-30
+description: <PostDescription>A bit of what could be interesting from the HTML world</PostDescription>
+image:
+    url: '/post/HTMLLogo.svg'
+    alt: 'HTMLLogo'
+tags: ["Frontend", "HTML"]
+---
+
+HTML environment is huge enough to get lost at the amount of documentation, tutorials, frameworks and libraries.
+
+As title says, this post it's about HTML, and what I want to show to you all are concepts that I may found useful 
+to prevent using frameworks or wrappers that complicates it's understanding to the developer.
+
+## Types of lists
+Defined in Mozilla docs, as far as I know there are three tags we can use based on the type of information
+that we have with us.
+
+### Unordered lists[^1]
+When we want to visualize elements from a list that may not have an specific order (much like simple visualization), 
+we can use the `<ul>...</ul>` tag like in the example below.
+```HTML
+<ul>
+ <li>Orange</li>
+ <li>Apple</li>
+ <li>Watermelon</li>
+</ul>
+```
+### Ordered lists[^2]
+When we want to show a set of things (actions, etc.) that comes in order, the `<ol>...</ol>` tag is used.
+```HTML
+<ol>
+ <li>Wake up</li>
+ <li>Take a shower</li>
+ <li>Eat breakfast</li>
+</ol>
+```
+### Description lists[^3]
+When we want to show a set of terms with it's respective description, we could use the `<dl>...</dl>` tag.
+```HTML
+<dl>
+ <dt>House</dt>
+ <dd>A building</dd>
+ <dt>Bycicle</dt>
+ <dd>A means of transport</dd>
+ <dt>Water</dt>
+ <dd>A chemical compound</dd>
+</dl>
+```
+---
+[^1]: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ol
+[^2]: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ul
+[^3]: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dl

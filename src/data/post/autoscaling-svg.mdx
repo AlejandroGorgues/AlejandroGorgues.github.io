@@ -1,0 +1,32 @@
+---
+title: Autoscaling SVG
+pubDate: 2025-05-04
+modDate: 2025-05-04
+description: <PostDescription>With the use of the `<svg>` tag, you can make SVG responsively, read this post to know how easily</PostDescription>
+image:
+    url: '/post/HTMLLogo.svg'
+    alt: 'HTMLLogo'
+tags: ["Frontend", "HTML", "SVG"]
+---
+In case you have an SVG that want to get draw in your page without the need to resize it manually for every screen size by css, js or html, there exists an easy solution, 
+by using `preserveAspectRatio="xMidYMid meet"` property instead of the width/height properties.
+
+For example, we can replace:
+```html
+<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="{...}" fill="#3B3EC9"/>
+</svg>
+```
+with:
+```html
+<svg preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="{...}" fill="#3B3EC9"/>
+</svg>
+```
+> Keep in mind that we still need to set the height/width in a css file.
+---
+
+## Sources
+* https://gist.github.com/myyellowshoe/e05dafdcc0f35a4d631db4c02a410eaa
+* https://stackoverflow.com/questions/3120739/resizing-svg-in-html
+* https://www.digitalocean.com/community/tutorials/svg-preserve-aspect-ratio

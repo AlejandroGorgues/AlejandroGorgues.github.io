@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from "astro:content";
+import PostListLayout from "../../layouts/PostList.astro";
+import { groupByDate } from "../../scripts/dateFormat";
+
+import type { GetStaticPathsOptions } from "astro";
+
+import type { CollectionEntry } from 'astro:content';
+import Pagination from "../../components/Pagination.astro";
+
+import type { Page } from 'astro';
+export interface Props {
+  page: Page;
+}
+
+export async function getStaticPaths({paginate} : GetStaticPathsOptions) {
+  let posts: CollectionEntry<'post'>[] = await getCollection("post");
+  // Generar rutas únicas basadas en las fechas de los posts
+  posts = posts.sort((a,b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  return paginate(
+      posts, 
+      {pageSize:5}
+    );
+}
+
+const {page} = Astro.props;
+const paginationProps = {
+	...(page.url.prev && {
+		prevUrl: {
+			text: "← Previous Page",
+			url: page.url.prev,
+		},
+	}),
+	...(page.url.next && {
+		nextUrl: {
+			text: "Next Page →",
+			url: page.url.next,
+		},
+	}),
+};
+const posts = groupByDate(page.data, '', 'modDate');
+---
+
+<BaseLayout>
+  <header>
+    <h1>Bunch of cool things</h1>
+  </header>
+  <PostListLayout posts={posts} />
+  <Pagination prevUrl={paginationProps.prevUrl} nextUrl={paginationProps.nextUrl}/>
+</BaseLayout>
+
+<style lang="scss">
+  h1 {
+    font-size: 2rem; 
+    font-weight: 700; 
+    justify-self: center;
+    
+    @media (min-width: 640px) {
+      font-size:3rem;
+      max-width: 80rem
+    }
+
+    @media (min-width: 1024px) {
+      font-size:4rem
+    }
+  }
+</style>

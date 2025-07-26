@@ -1,0 +1,36 @@
+---
+title: Render entry in Astro using jsx
+pubDate: 2025-05-02
+modDate: 2025-05-02
+description: <PostDescription>Some basic concept of Astro rendering</PostDescription>
+image:
+    url: '/post/AstroLogo.svg'
+    alt: 'AstroLogo'
+tags: ["Frontend", "Astro", "Blog"]
+---
+At some point during my blog development I asked myself how to render programatically through jsx.
+By thinking and looking at the StackOverflow forum, I found out an [answer](https://stackoverflow.com/questions/78627256/how-to-render-multiple-content-entries-from-getcollection-in-astro) 
+written by [Soviut](https://stackoverflow.com/users/46914/soviut) who made it easily to implement.
+
+First of all, we need to import the render.
+```astro
+---
+import { render } from 'astro:content';
+---
+```
+Then, if we want to render multiple items, we can do it inside the jsx brackets, otherwise, just by
+wrapping it in jsx curly brackets would be enough.
+```jsx
+<ul>
+  {
+    contents.map(async (c) => {
+      const { Content } = await c.render()
+      return (
+        <li>
+          <Content />
+        </li>
+      )
+    })
+  }
+</ul>
+```

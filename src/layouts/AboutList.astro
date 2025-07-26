@@ -1,0 +1,42 @@
+---
+import MarkdownAboutLayout from "./MarkdownAbout.astro";
+import { render, type CollectionEntry } from 'astro:content';
+
+interface Props {
+  infos: CollectionEntry<"job"| "study">[];
+  title:string;
+}
+const { infos, title } = Astro.props;
+
+---
+<section>
+    <dl style="list-style-type: none;">
+        <dt style="font-size: 2.5rem; font-weight: 700; position:relative; overflow:hidden;">{title}</dt>
+        {
+            infos.map(async (info) =>{
+                const {Content} = await render(info); 
+                return(
+                    <dd style="margin: 4rem 0;">
+                        <MarkdownAboutLayout frontmatter={info.data}>
+                            <Content />
+                        </MarkdownAboutLayout>
+                    </dd>
+                );
+            })
+        }
+    </dl>
+</section>
+
+<style lang="scss">
+    dt:after{
+        content:'';
+        top: 50%;
+        height: 0;
+        margin-top: 2px;
+        border-top:groove 2px;
+        width:50%;
+        position:absolute;
+        margin-right:-100%;/* reduce size virtually to zero at 100% */
+        margin-left:1%;/* set margin from end  text */
+    }
+</style>

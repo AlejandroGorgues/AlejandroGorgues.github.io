@@ -1,0 +1,331 @@
+---
+import Header from '../components/Header.astro';
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <Header />
+    <main class="o-wrapper">
+        <slot />
+    </main>
+  </body>
+</html>
+
+<style is:global lang="scss">
+@charset "UTF-8";
+@use '../styles/_variables' as v;
+  *, :before, :after {
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+}
+:before, :after {
+    text-decoration: inherit;
+    vertical-align: inherit;
+}
+
+:where(:root) {
+    line-height: 1.5;
+    word-wrap: break-word;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+}
+
+
+:where(body) {
+    margin: 0
+}
+
+:where(h1) {
+    font-size: 2em;
+    margin: .67em 0
+}
+
+:where(dl,ol,ul) :where(dl,ol,ul) {
+    margin: 0
+}
+
+:where(hr) {
+    color: inherit;
+    height: 0
+}
+
+:where(nav) :where(ol,ul) {
+    list-style-type: none;
+    padding: 0
+}
+
+:where(nav li):before {
+    content: "​";
+    float: left
+}
+
+:where(pre) {
+    font-family: monospace,monospace;
+    font-size: 1em;
+    overflow: auto
+}
+
+:where(abbr[title]) {
+    text-decoration: underline;
+    -webkit-text-decoration: underline dotted;
+    text-decoration: underline dotted
+}
+
+:where(b,strong) {
+    font-weight: bolder
+}
+
+:where(code,kbd,samp) {
+    font-family: monospace,monospace;
+    font-size: 1em
+}
+
+:where(small) {
+    font-size: 80%
+}
+
+:where(audio,canvas,iframe,img,svg,video) {
+    vertical-align: middle
+}
+
+:where(iframe) {
+    border-style: none
+}
+
+:where(svg:not([fill])) {
+    fill: currentColor
+}
+
+:where(table) {
+    border-collapse: collapse;
+    border-color: inherit;
+    text-indent: 0
+}
+
+:where(button,input,select) {
+    margin: 0
+}
+
+:where(fieldset) {
+    border: 1px solid #a0a0a0
+}
+
+:where(progress) {
+    vertical-align: baseline
+}
+
+:where(textarea) {
+    margin: 0;
+    resize: vertical
+}
+
+
+.o-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-bottom: 4rem;
+    width: min(100%, 144rem);
+}
+
+header {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+html {
+    background-color: v.$portfolio-bgcolor;
+    scroll-behavior: smooth;
+    font-family: v.$portfolio-font-family;
+    font-size: 62.5%;
+    scroll-padding-top: 10lh;
+}
+
+ul,ol {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.6rem;
+}
+
+main {
+  flex: 1 0 auto; /* El main crece y empuja el footer abajo */
+}
+a {
+    color: inherit;
+}
+
+body::after{
+    content: "";
+    position: relative; /* o absolute si prefieres que se mueva con el scroll */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 8px; /* alto total de las dos líneas */
+    background: 
+    linear-gradient(
+      to bottom,
+      v.$portfolio-body-foot-color 0 50%,      /* primera línea */
+      v.$portfolio-body-foot-color-black 50% 100%   /* segunda línea */
+    );
+    z-index: 9999; /* por encima del contenido */
+}
+
+.rich-text{
+    width:100%;
+}
+
+.rich-text>*~* {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+  
+.rich-text h2 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-top: 2em;
+}
+  
+.rich-text a {
+    color: v.$portfolio-rich-text-color;
+    text-decoration-color: v.$portfolio-rich-text-color;
+    transition: color .2s ease;
+}
+
+.rich-text a:focus,.rich-text a:hover {
+    color: inherit;
+}
+
+.rich-text a[href^=http] {
+    position: relative;
+}
+
+.rich-text a[href^=http]:after {
+    color: v.$portfolio-rich-text-color;
+    content: "↗";
+    content: "↗"/"";
+    display: inline-block;
+    font-style: normal;
+    font-size: .75em;
+    position: relative;
+    margin-left: .1em;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    top: -.2em;
+}
+
+@supports not (content: "↗"/"") {
+    .rich-text a[href^=http]:after {
+        content:url("data:image/svg+xml;charset=utf-8 viewBox='0 0 9 9' fill='currentColor' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' width='7.29' height='7.29' color='%23d11149'%3E %3Cpath d='M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z'");
+        transform: translateY(-1px)
+    }
+}
+
+.rich-text a[href^=http]:focus:after,.rich-text a[href^=http]:hover:after {
+    color: v.$portfolio-rich-text-color;
+}
+
+.rich-text pre {
+    border: 2px solid v.$portfolio-rich-text-color;
+    border-radius: 5px;
+    padding: 2rem;
+    background: v.$portfolio-rich-text-pre-bgcolor;
+    max-width: 75%;
+}
+
+@media (min-width: 1024px) {
+    .rich-text pre {
+        margin-right: -12rem
+    }
+}
+
+.rich-text code:not(pre > code),
+.rich-text blockquote > code:not(pre > code) {
+    color: v.$portfolio-rich-text-pre-code-color;
+    background-color: v.$portfolio-rich-text-pre-code-bgcolor;
+    padding: .25rem .25rem;
+    border-radius: 10px;
+}
+
+.rich-text pre > code,
+.rich-text blockquote > pre > code {
+    font-family: v.$portfolio-code-font-family;
+    border-radius: 4px;
+    direction: ltr;
+    font-size: 14px;
+    counter-reset: step;
+    counter-increment: step 0;
+}
+
+
+.rich-text pre > code .line::before {
+    content: counter(step);
+    counter-increment: step;
+    width: 1rem;
+    margin-right: 1.5rem;
+    display: inline-block;
+    text-align: right;
+    color: v.$portfolio-rich-text-line-counter-color;
+}
+
+.rich-text pre > code .no-counter::before {
+  counter-increment: none;
+}
+.rich-text pre > code  .no-counter::before {
+  content: "";
+}
+
+.rich-text ul,.rich-text ol {
+    padding-left: 1.5em
+}
+
+.rich-text img {
+    margin-left: -2rem;
+    margin-right: -2rem;
+    max-width: calc(100% + 4rem)
+}
+
+@media (min-width: 1024px) {
+    .rich-text img {
+        margin-left:-1.2rem;
+        margin-right: -12rem;
+        max-width: calc(100% + 13.2rem)
+    }
+}
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:italic);
+.rich-text blockquote{
+    margin:0px 0px;
+    font-family:Open Sans;
+    font-style:italic;
+    color: v.$portfolio-rich-text-blockquote-color;
+    padding:2px 10px 2px 50px;
+    border-left:8px solid v.$portfolio-rich-text-color ;
+    position: relative;
+    background:v.$portfolio-rich-text-blockquote-bgcolor;
+}
+
+.rich-text blockquote::before{
+    font-family:Arial;
+    content: "\201C";
+    color:v.$portfolio-rich-text-color;
+    font-size:4em;
+    position: absolute;
+    left: 10px;
+    top:-10px;
+}
+
+</style>

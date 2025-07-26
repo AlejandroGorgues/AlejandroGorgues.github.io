@@ -1,0 +1,31 @@
+---
+title: GDAL - Snippets
+pubDate: 2025-05-13
+modDate: 2025-05-13
+description: <PostDescription>GDAL shortcuts</PostDescription>
+image:
+    url: '/post/GDALLogo.svg'
+    alt: 'GDALLogo'
+tags: ["Code", "GDAL"]
+---
+
+GDAL is one of the most known software library for raster and vector geospatial treatment.
+Multiple formats from the geospatial field can be used, and a lot of the geospatial sofware has GDAL below because it's simplicity
+and powerfulness.
+
+However, as on many of the cases, when things get complicated, you have to look for, and there is not so much
+documentation to understand how to use it. In this post I will try to write some of those cases that helped me
+along my work.
+
+## Reproject raster with longitude that goes from (0,360) to (-180,180) degrees[^1]
+```bash
+# Description:
+# raster lat: (-90,90)
+# raster lon: (-0,360)
+# raster projection: WGS84
+# CENTER_LONG: 0 to force rewrapping around new central longitude
+# SOURCE_EXTRA: 1000 to add extra data on longitude limits to prevent gap generation
+gdalwarp -s_srs "+proj=longlat +ellps=WGS84" -t_srs WGS84 input.tif output.tif -wo SOURCE_EXTRA=1000 --config CENTER_LONG 0
+```
+---
+[^1]:https://gis.stackexchange.com/questions/37790/reprojecting-raster-from-0-360-to-180-180-with-cutting-180-meridian-using-gdalw

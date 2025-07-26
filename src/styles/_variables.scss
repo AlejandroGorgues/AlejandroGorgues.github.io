@@ -1,0 +1,57 @@
+@use 'sass:color';
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans:Mono);
+@import url(https://fonts.googleapis.com/css?family=JetBrains+Mono:Mono);
+// NOTE: SVG can only be changed via SASS variable since it requires to use a SASS mixin
+
+// Base portfolio
+$portfolio-bgcolor:                             #e7e5e4 !default;
+// $portfolio-font-family:                           Merriweather,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+$portfolio-font-family:                           'Noto Sans';
+$portfolio-code-font-family:                           'JetBrains Mono';
+$portfolio-hover-color:                    #ff00001a;
+$portfolio-underline-color:                           #ff0000;
+
+$portfolio-body-foot-color:                           #d1114796;
+$portfolio-body-foot-color-black:                           #2abc89a6;
+
+$portfolio-date-color:                           #e60303;
+$portfolio-rich-text-color:                           #d11149;
+$portfolio-rich-text-color-black:                           #2abc89;
+$portfolio-rich-text-pre-bgcolor:                           #343434;
+$portfolio-rich-text-pre-code-color:                   #ffffff;
+$portfolio-rich-text-pre-code-bgcolor:                   #343434;
+$portfolio-rich-text-line-counter-color:                   #00000091;
+$portfolio-rich-text-blockquote-color:                   #555555;
+$portfolio-rich-text-blockquote-bgcolor:                   #EDEDED;
+
+$portfolio-header-bgcolor:                   #101c331a;
+$portfolio-header-bg-image:                   linear-gradient(to bottom,$portfolio-bgcolor ,$portfolio-bgcolor );
+
+$portfolio-about-dot-not-color:                    #d65e68;
+$portfolio-about-dot-update-color:                    #0b7a75;
+$portfolio-about-dot-before-border:                   1px solid #fff;
+
+
+$portfolio-pagefind-dialog-bg-color:                        #f3f3f3;
+$portfolio-pagefind-button-hover-color:                    #b6b6b6 !default;
+$portfolio-pagefind-dialog-box-shadow:                      0 1px 2px 0 #0000000d;
+$portfolio-pagefind-dialog-border:                          1px solid #ffffff;
+$portfolio-pagefind-dialog-button-bgcolor:         #dadada;
+$portfolio-pagefind-result-link-bgimage:           linear-gradient(
+                                                                transparent,
+                                                                transparent 5px,
+                                                                #567b76 5px,
+                                                                #567b76
+                                                            );
+$portfolio-pagefind-ui-background:                           #ffffff;
+$portfolio-pagefind-ui-primary:                           #ff0000;
+$portfolio-pagefind-ui-text:                                 #22272a;
+$portfolio-pagefind-ui-border:                               #d4d4d8;
+$portfolio-pagefind-ui-border-width:                         2px;
+$portfolio-pagefind-ui-search-clear-focus-outline:           1px solid $portfolio-rich-text-color;
+$portfolio-pagefind-result-link-hover: linear-gradient(
+                                                                transparent,
+                                                                transparent 4px,
+                                                                #567b76 4px,
+                                                                #567b76
+                                                            );

@@ -1,0 +1,10 @@
+---
+export interface Props {
+    platform:string;
+    username:string;
+}
+const { platform, username } = Astro.props;
+---
+<a style="margin: .25lh; text-decoration-line: none;" href={`https://www.${platform}.com/${username}`}>
+    <slot />
+</a> 

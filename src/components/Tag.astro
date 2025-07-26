@@ -1,0 +1,35 @@
+---
+import Tags from '../assets/icons/tags.svg'
+import TextLink from './TextLink.astro';
+export interface Props {
+    tags:string[];
+}
+const {tags} = Astro.props;
+---
+<div>
+    <Tags style="margin-right:0.25lh"/>
+    <ul style="list-style-type: none; display: inline-flex;">
+        
+        {tags.map((tag:string) => (
+        <li>
+            <TextLink data-pagefind-filter={`tag:${tag}`} class="tag-token" url={`/tag/${tag}`} title={ tag } />
+        </li>
+        ))}
+    </ul>
+</div>
+
+<style lang="scss">
+    @use '../styles/_variables' as v;
+    div::before{
+        margin: 0 .5lh;
+        content:"|";
+    }
+
+    li:not(:last-child) {
+        margin-right:0.5lh
+    }
+    .tag-token::before{
+        content: '#';
+    }
+
+</style>

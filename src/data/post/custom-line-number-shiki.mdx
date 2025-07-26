@@ -1,0 +1,29 @@
+---
+title: Custom line numbers for code on shiki
+pubDate: 2025-05-02
+modDate: 2025-05-02
+description: <PostDescription>CSS example on how to use the `counter` property</PostDescription>
+image:
+    url: '/post/AstroLogo.svg'
+    alt: 'AstroLogo'
+tags: ["Frontend", "Astro", "Blog", "CSS"]
+---
+Because all code from markdown comes inside a `<code>` tag, based on [alexpeattie](https://github.com/shikijs/shiki/issues/3) answer on the github issue, one can add a custom
+line number to the left that gives a good looking view of the code.
+```css
+code {
+  counter-reset: step;
+  counter-increment: step 0;
+}
+
+code .line::before {
+  content: counter(step);
+  counter-increment: step;
+  width: 1rem;
+  margin-right: 1.5rem;
+  display: inline-block;
+  text-align: right;
+  color: rgba(115,138,148,.4)
+}
+```
+[^1]: 

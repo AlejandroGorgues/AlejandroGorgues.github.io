@@ -1,0 +1,58 @@
+---
+import Search from "./Search.astro";
+import Social from './Social.astro';
+import Github from '../assets/icons/github.svg'
+import Linkedin from '../assets/icons/linkedin.svg'
+---
+<header style="-webkit-backdrop-filter: blur(.2rem); backdrop-filter: blur(.2rem); top: 0; position: sticky; z-index: 999;" class="o-wrapper">
+    <div id="site-header__interior" style="align-items: center; display: flex; flex-wrap: wrap; gap: 1rem 2rem; padding-top: 2.5rem; padding-bottom: 1rem; position: relative;" >
+        <div style="font-size: 3.6rem; font-weight: 700; line-height: 1;">
+            <a style="text-decoration-line: none;" href="/">Alejandro<br>Gorgues</a>
+        </div>
+        <div style="align-self:flex-end">
+        {            
+            <Social platform="github" username="AlejandroGorgues">
+                <Github width={25} height={25}/>
+            </Social>
+            <Social platform="linkedin" username="in/alejandro-gorgues-valenciano">
+                <Linkedin width={25} height={25}/>
+            </Social>
+        }
+        </div>
+        <nav style="margin-left:auto">
+            <ul style="display: flex; gap: 1rem;">
+                <li>
+                    <a style="display: block; padding: .5rem; text-decoration-line: none; font-size:1lh" href="/about/">About</a>
+                </li>
+                <li>
+                    <a style="display: block; padding: .5rem; text-decoration-line: none; font-size:1lh" href="/posts/">Posts</a>
+                </li>
+                <li>
+                    <a style="display: block; padding: .5rem; text-decoration-line: none; font-size:1lh" href="/project/">Projects</a>
+                </li>
+                <li>
+                    <a style="display: block; padding: .5rem; text-decoration-line: none; font-size:1lh" href="/linkboard/">Linkboard</a>
+                </li>
+            </ul>
+        </nav>
+        <Search />
+    </div>
+</header>
+
+<style lang="scss">
+    @use '../styles/_variables' as v;
+    header {
+        background-image: v.$portfolio-header-bg-image;
+    }
+
+    #site-header__interior::after {
+        background-color: v.$portfolio-header-bgcolor;
+        content: "";
+        display: block;
+        height: 1px;
+        bottom: 0;
+        left: 2rem;
+        right: 2rem;
+        position: absolute;
+    }
+</style>

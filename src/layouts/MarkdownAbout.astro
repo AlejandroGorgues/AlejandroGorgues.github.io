@@ -1,0 +1,57 @@
+---
+import type {About} from '../types/models/portfolioEntry.interface'
+import {dateToStr} from "../scripts/dateFormat"
+interface Props {
+  frontmatter: About;
+}
+
+const {frontmatter} = Astro.props;
+const fromDate = dateToStr(frontmatter.startDate)
+
+let toDate = ''
+// if(Object.prototype.toString.call(frontmatter.endDate) === '[object Date]'){
+if(frontmatter.endDate instanceof Date){
+    toDate = dateToStr(frontmatter.endDate)
+}else{
+    toDate = frontmatter.endDate
+}
+---
+<section style="position: relative;" data-visible={toDate === 'Present' ? 'true' : 'false'} >
+    <header style="display:flex; flex-direction: column;">
+        <div style="display:flex; flex-direction: row; justify-content: space-between; align-items: baseline;">
+            <h3 style="font-size: 1.75rem; font-weight: 700; opacity: .85;">{frontmatter.title}</h3>
+            <h2 style="font-size: 1.25rem; font-weight: 700; opacity: .85;"> {fromDate} - {toDate}</h2>
+        </div>
+            <h3 style="font-size: 1.5rem; font-weight: 500; font-style: italic; opacity: .75; margin-top: -.5lh;">{frontmatter.entity}</h3>
+    </header>
+    <slot />
+    <ul>
+        {
+            frontmatter.techs.map((tech:string)=>{
+                return (
+                <li>
+                    {tech}
+                </li>)
+            })
+        }
+    </ul>
+</section>
+
+<style lang="scss">
+    @use '../styles/_variables' as v;
+    section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: v.$portfolio-hover-color;
+        z-index: -1;
+        margin: -1lh -2lh; /*Simulate padding space */
+    }
+
+    section[data-visible="false"]::before {
+        display: none; /* Oculta el pseudo-elemento */
+    }
+</style>

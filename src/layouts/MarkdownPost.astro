@@ -1,0 +1,74 @@
+---
+import type { Post } from "../types/models/portfolioEntry.interface";
+interface Props {
+  frontmatter: Post;
+}
+
+import CategoryLogo from "../components/CategoryLogo.astro";
+import Tag from "../components/Tag.astro";
+import PortfolioDate from "../components/PortfolioDate.astro";
+import BaseLayout from "./BaseLayout.astro";
+const { frontmatter } = Astro.props;
+---
+<BaseLayout>
+  <section style="display:flex; flex-direction: column; justify-self:center; width:100ch;" data-pagefind-body>
+    <header>
+      <div style="display: flex; flex-direction: row; align-items: center; gap:1lh; 
+        margin-top: 2.5rem; margin-bottom: 2.5rem;">
+        <CategoryLogo src={frontmatter.image.url} class="logo" />
+        <h1>{frontmatter.title}</h1>
+      </div>
+      <div style="display: flex;">
+        <PortfolioDate date={frontmatter.pubDate} modDate={frontmatter.modDate}/>
+        <Tag tags={frontmatter.tags} />
+      </div>
+    </header>
+    <section class="rich-text">
+      <slot />
+    </section>
+  </section>
+</BaseLayout>
+
+<style lang="scss">
+  h1 {
+    font-size: 3rem; 
+    font-weight: 700;
+    text-wrap: balance;
+    
+    @media (min-width: 640px) {
+      font-size:3rem;
+      max-width: 80rem;
+    }
+
+    @media (min-width: 1024px) {
+      font-size:4rem;
+    }
+  }
+.logo {
+  width:10%;
+  height:75px;
+}
+</style>
+
+<script>
+  let setOutputStyle = false
+  document.querySelectorAll('pre[data-language="python"] code').forEach(code => {
+    setOutputStyle = false
+    Array.from(code.children).forEach(lineSpan => {
+      Array.from(lineSpan.children).forEach((child: Element) => {
+        const lineChildSpan = child as HTMLSpanElement;
+        if(lineChildSpan.innerHTML === 'PYTHON-OUTPUT'){
+          setOutputStyle = true
+          lineSpan.remove();
+        }else if(lineChildSpan.innerHTML === 'END PYTHON-OUTPUT'){
+          setOutputStyle = false
+          lineSpan.remove();
+        }else if(setOutputStyle){
+          lineSpan.classList.add('no-counter');
+          lineChildSpan.style.setProperty('color', 'grey', 'important');
+        }
+        
+      })
+    })
+  });
+</script>

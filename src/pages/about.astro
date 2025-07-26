@@ -1,0 +1,172 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AboutListLayout from '../layouts/AboutList.astro';
+import AboutGridLayout from '../layouts/AboutGrid.astro';
+import Python from '../assets/icons/python.svg';
+import JavaScript from '../assets/icons/javascript.svg';
+import Git from '../assets/icons/git.svg';
+import Docker from '../assets/icons/docker.svg';
+import PyTorch from '../assets/icons/pytorch.svg';
+import Tensorflow from '../assets/icons/tensorflow.svg';
+import PostgreSQL from '../assets/icons/postgresql.svg';
+import Gdal from '../assets/icons/gdal.svg';
+import TechIcon from '../components/TechIcon.astro';
+const jobs: CollectionEntry<'job'>[] = await getCollection('job');
+const studies: CollectionEntry<'study'>[] = await getCollection('study');
+const misc: CollectionEntry<'miscellaneous'>[] = await getCollection('miscellaneous');
+---
+<BaseLayout>
+    <section>
+        <header >
+            <div>
+                <h1>About Me</h1>
+            </div>
+            <div style="display: flex; gap: 1rem; transition: opacity .2s ease">
+                <div style="display: grid; flex-shrink: 0; height: 1rem; margin-top: .45em; width: 1rem;" class="status-indicator__dot" dot-update={true}></div>
+                <div id="status-indicator__message" style="opacity: .75; transition: opacity .2s ease;" class="rich-text">
+                    Currently working at <a style="display: inline-block; position: relative;" href="https://www.vexiza.com">Vexiza</a>.
+                </div>
+            </div>
+        </header>
+        <div>
+            <section id="content-about-info-from-layout__section">
+                <div class="rich-text" style="max-width: 70ch;">
+                    <p>
+                        Born in Spain, I have worked as a System Administration intern, a Software Developer specializing in satellite imagery processing,
+                         a Researcher in AI applications for Aerodynamics, and a Data Engineer focused on weather analysis and prediction, alert and traffic management.
+                    </p>
+                    <p>
+                        I'm also trying not to get trapped in the tech hell life where everything is shinny but not all is useful
+                        while avoiding as much as possible impostor syndrome
+                        through attendance at talks, meetings, reading books and forums.
+                        Currently interested in Computer Graphics, Arquitecture Design, Big Data and GIS environment.
+                    </p>
+
+                    <p>This page shows how my career has progressed; full of different experiences where I learned a lot. 
+                        Keep checking back to see how it's going!!</p>
+
+                    <!-- <p>Or if you want to see it in a more classic view, you can access and download my <a href="http://cosa.com">CV</a>.</p> -->
+                </div>
+                <div id="content-from-about-tech__section">
+                    <h2>Things I use</h2>
+                    <div style="display: flex; flex-wrap: wrap; justify-content:center; gap: 1rem;">
+                        <TechIcon title="Python">
+                            <Python width={50} height={50}/>
+                        </TechIcon>
+                        <TechIcon title="JavaScript">
+                            <JavaScript width={50} height={50}/>
+                        </TechIcon>
+                        <TechIcon title="Git">
+                            <Git width={50} height={50}/>
+                        </TechIcon>
+                        <TechIcon title="Docker">
+                            <Docker width={50} height={50}/>
+                        </TechIcon>
+                        <TechIcon title="Pytorch">
+                            <PyTorch width={50} height={50}/>
+                        </TechIcon>
+                        <TechIcon title="Tensorflow">
+                            <Tensorflow width={50} height={50}/>
+                        </TechIcon>
+                        <TechIcon title="PostgreSQL">
+                            <PostgreSQL width={50} height={50}/>
+                        </TechIcon>
+                        <TechIcon title="Gdal">
+                            <Gdal width={50} height={50}/>
+                        </TechIcon>
+                    </div>
+                </div>
+            </section>
+            <section style="display: flex; flex-direction:column; justify-self: center; justify-content:center; max-width: 900px;">
+                <AboutListLayout infos={jobs} title="Work" />
+                <AboutListLayout infos={studies} title="Studies" />
+                <AboutGridLayout infos={misc} title="Technical content" />
+            </section>
+        </div>
+    </section>
+</BaseLayout>
+
+<style lang="scss">
+@use '../styles/_variables' as v;
+
+h1 {
+    font-size: 2rem; 
+    font-weight: 700; 
+    justify-self: center;
+    
+    @media (min-width: 640px) {
+        font-size:3rem;
+        max-width: 80rem
+    }
+    @media (min-width: 1024px) {
+        font-size:4rem
+    }
+}
+
+    #content-about-info-from-layout__section{
+        display: flex; 
+        flex-direction: column;
+    }
+
+    #content-about-info-from-layout__section {
+        @media (min-width: 1024px) {
+            align-items:flex-start;
+            flex-direction: row;
+        }
+    }
+
+.status-indicator__dot {
+    color: v.$portfolio-about-dot-not-color;     
+}
+.status-indicator__dot[dot-update=true] {
+    color: v.$portfolio-about-dot-update-color;
+}
+
+.status-indicator__dot:before,.status-indicator__dot:after {
+    background-color: currentColor;
+    border-radius: 50%;
+    content: "";
+    display: block;
+    grid-column: 1;
+    grid-row: 1;
+    height: 100%;
+    width: 100%
+}
+
+.status-indicator__dot:before {
+    border: v.$portfolio-about-dot-before-border;
+}
+
+.status-indicator__dot:after {
+    animation: c-status-indicator-pulse linear infinite 1.5s;
+    opacity: .1;
+    transform: scale(1.5)
+}
+
+.status-indicator:focus-within ,.status-indicator:hover {
+    opacity: 1
+}
+
+@keyframes c-status-indicator-pulse {
+    50% {
+        opacity: .2;
+        transform: scale(1.8)
+    }
+}
+
+    #content-from-about-tech__section{
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        align-items: center;
+        max-width: 100%;
+    }
+
+    #content-from-about-tech__section {
+        @media (min-width: 1024px) {
+                order: 0;
+                margin-top:-5rem;
+            }
+    }
+</style>

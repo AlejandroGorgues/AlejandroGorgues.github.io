@@ -1,0 +1,63 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostListLayout from "../../layouts/PostList.astro";
+import { groupByDate } from "../../scripts/dateFormat";
+
+import type { CollectionEntry } from 'astro:content';
+import type { Post } from "../../types/models/portfolioEntry.interface";
+interface Props {
+  posts: Post[];
+}
+
+export async function getStaticPaths() {
+  const posts: CollectionEntry<'post'>[] = await getCollection("post");
+  const postsGrouped = posts.reduce((acc: {[index:string]: typeof posts }, post) => {
+    const tags = post.data.tags;
+    for(let tag of tags){
+      if (!acc[tag]) acc[tag] = [];
+      acc[tag].push(post);
+
+    }
+    return acc;
+  }, {});
+
+  return Object.entries(postsGrouped).map(([tag, posts]) => {
+    return {
+      params: {
+        tag: tag,
+      }, 
+      props: { posts },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+const postsGrouped = groupByDate(posts, '', 'modDate');
+---
+
+<BaseLayout>
+  <header>
+    <h1>Posts tagged with {tag}</h1>
+  </header>
+  <PostListLayout posts={postsGrouped} />
+</BaseLayout>
+
+<style lang="scss">
+  h1 {
+    font-size: 2rem; 
+    font-weight: 700; 
+    justify-self: center;
+    
+    @media (min-width: 640px) {
+      font-size:3rem;
+      max-width: 80rem
+    }
+
+    @media (min-width: 1024px) {
+      font-size:4rem
+    }
+  }
+
+</style>

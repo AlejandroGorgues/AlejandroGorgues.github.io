@@ -1,0 +1,597 @@
+[
+    {
+		"title": "Visualization of css grid attributes",
+		"url": "https://grid.malven.co/",
+		"tags": "Frontend, CSS"
+    },
+    {
+		"title": "Flexbox playground",
+		"url": "https://flexbox.tech/",
+		"tags": "Frontend, CSS"
+    },
+    {
+		"title": "Preact (3kB alternative to React with same modern API)",
+		"url": "https://preactjs.com/",
+		"tags": "Frontend, Preact"
+    },
+    {
+		"title": "Unified (Community of frontend representation)",
+		"url": "https://unifiedjs.com/",
+		"tags": "Community"
+    },
+    {
+		"title": "Google fonts repository",
+		"url": "https://fonts.google.com/",
+		"tags": "Google, Frontend, Font"
+    },
+    {
+		"title": "VSCode shorcuts",
+		"url": "https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf",
+		"tags": "VSCode, Microsoft"
+    },
+    {
+		"title": "YUIDoc - JavaScript Documentation Tool",
+		"url": "https://yui.github.io/yuidoc/",
+		"tags": "JavaScript, Documentation"
+    },
+    {
+		"title": "Model Context Protocol (MCP)",
+		"url": "https://modelcontextprotocol.io/introduction",
+		"tags": "LLM, AI"
+    },
+    {
+		"title": "Overture Maps Foundation",
+		"url": "https://overturemaps.org/",
+		"tags": "Geo, Map, Community"
+    },
+    {
+		"title": "Grid generator playground",
+		"url": "https://cssgrid-generator.netlify.app/",
+		"tags": "Frontend"
+    },
+    {
+		"title": "Color wheel",
+		"url": "https://www.canva.com/colors/color-wheel/",
+		"tags": "Frontend"
+    },
+    {
+		"title": "Color calculator (Sessions College)",
+		"url": "https://www.sessions.edu/color-calculator/",
+		"tags": "Frontend"
+    },
+    {
+		"title": "Color playground (Leonardocolor)",
+		"url": "https://leonardocolor.io/#",
+		"tags": "frontend"
+    },
+    {
+		"title": "Open-Source UI components (uiverse)",
+		"url": "https://uiverse.io/",
+		"tags": "Community, Open-Source"
+    },
+    {
+		"title": "Fonts (fontawesome)",
+		"url": "https://fontawesome.com/",
+		"tags": "Frontend, Font"
+    },
+    {
+		"title": "Kraina AI",
+		"url": "https://kraina.ai/",
+		"tags": "Mobility, Geo, Research"
+    },
+    {
+		"title": "Huggingface",
+		"url": "https://huggingface.co/",
+		"tags": "LLM, Community, AI"
+    },
+    {
+		"title": "Jitsi meet",
+		"url": "https://meet.jit.si/",
+		"tags": "Community, Open-Source"
+    },
+    {
+		"title": "Podcast republicaweb",
+		"url": "https://republicaweb.es/",
+		"tags": "Podcast, Spanish"
+    },
+    {
+		"title": "Google Site Reiability Workbook",
+		"url": "https://sre.google/workbook/table-of-contents/",
+		"tags": "Frontend, Google"
+    },
+    {
+		"title": "Media player MPV",
+		"url": "https://mpv.io/",
+		"tags": "Open-Source, Video"
+    },
+    {
+		"title": "Software analysis Glamorous toolkit",
+		"url": "https://gtoolkit.com/",
+		"tags": "Software, Data-Analysis"
+    },
+    {
+		"title": "Open-Source AI Observability",
+		"url": "https://docs.arize.com/phoenix",
+		"tags": "Geo, Observability, Open-Source, LLM, AI"
+    },
+    {
+		"title": "Blog Internet of Bugs",
+		"url": "https://internetofbugs.beehiiv.com/",
+		"tags": "Blog, Software"
+    },
+    {
+		"title": "Shader playground",
+		"url": "https://twigl.app/",
+		"tags": "Computer-Graphic, Shader"
+    },
+    {
+		"title": "Typescript validator ArkType",
+		"url": "https://arktype.io/",
+		"tags": "Frontend, TypeScript"
+    },
+    {
+		"title": "Kubernetes minikube",
+		"url": "https://minikube.sigs.k8s.io/docs/",
+		"tags": "Kubernetes, DevOps"
+    },
+    {
+		"title": "Compiler Accelerated DataFrame FireDucks",
+		"url": "https://fireducks-dev.github.io/",
+		"tags": "Python, Library"
+    },
+    {
+		"title": "Random text with AI: TextFX",
+		"url": "https://textfx.withgoogle.com/",
+		"tags": "AI,LLM, Google"
+    },
+    {
+		"title": "Anthropic blog",
+		"url": "https://transformer-circuits.pub/",
+		"tags": "Anthropic, Blog, AI"
+    },
+    {
+		"title": "Local LLM: Llama.cpp",
+		"url": "https://github.com/ggml-org/llama.cpp",
+		"tags": "AI, LLM, Self-Hosted"
+    },
+    {
+		"title": "Hosting: Contabo",
+		"url": "https://contabo.com/en-us/",
+		"tags": "Hosting"
+    },
+    {
+		"title": "Decompilation: Decomp",
+		"url": "https://decomp.me/",
+		"tags": "Reverse Eng., Decompilation"
+    },
+    {
+		"title": "Icons css.gg",
+		"url": "https://css.gg/",
+		"tags": "Frontend, Icon"
+    },
+    {
+		"title": "Icons bootstrap",
+		"url": "https://icons.getbootstrap.com/",
+		"tags": "Frontend, Icon"
+    },
+    {
+		"title": "Design guidelines: Backbase",
+		"url": "https://designsystem.backbase.com/",
+		"tags": "UX/UI, Guideline"
+    },
+    {
+		"title": "Design Papers: Typst",
+		"url": "https://typst.app/",
+		"tags": "Research, UX/UI, Design"
+    },
+    {
+		"title": "Blog Distill",
+		"url": "https://distill.pub/",
+		"tags": "AI, Blog"
+    },
+    {
+		"title": "Game Development: GameEngineBook",
+		"url": "https://www.gameenginebook.com/",
+		"tags": "Game-Dev, Game, Blog, C++"
+    },
+    {
+		"title": "Game Assets: Kenney",
+		"url": "https://kenney.nl/",
+		"tags": "Game-Dev, Assets"
+    },
+    {
+		"title": "Deep Wiki",
+		"url": "https://deepwiki.com/",
+		"tags": "AI, LLM, Documentation"
+    },
+    {
+		"title": "Icons Lucide",
+		"url": "https://lucide.dev/",
+		"tags": "Frontend, Icon"
+    },
+    {
+		"title": "CDO User Guide",
+		"url": "https://users.rcc.uchicago.edu/~davidkelly999/cdo.pdf",
+		"tags": "Geo, CDO, Guide"
+    },
+    {
+		"title": "CDO Reference Card",
+		"url": "https://earth.bsc.es/gitlab/ces/cdo/raw/af179a43173ab47adb3608f6f9ef540a24c3aa77/doc/cdo_refcard.pdf",
+		"tags": "Geo, CDO, Guide"
+    },
+    {
+		"title": "PODAC Workshop",
+		"url": "https://podac.github.io/tutorials/quarto_text/Tutorials.html",
+		"tags": "Geo, Guide"
+    },
+    {
+		"title": "Open Sicence NetCDF Guidelines",
+		"url": "https://sist.pages.in2p3.fr/webinaire_netcdf_2024/introduction.html",
+		"tags": "Geo, NetCDF, Guide"
+    },
+    {
+		"title": "Cloud-Performant NetCDF4/HDF5 with Zarr, Fsspec and Intake",
+		"url": "https://medium.com/pangeo/cloud-performant-netcdf4-hdf5-with-zarr-fsspec-and-intake-3d3a3e7cb935",
+		"tags": "Geo, NetCDF, Guide, HDF5, Zarr"
+    },
+    {
+		"title": "OpenDataCube",
+		"url": "https://opendatacueb.org",
+		"tags": "Geo, Geospatial, Data-Cube"
+    },
+    {
+		"title": "Dynamical",
+		"url": "https://dynamical.org/",
+		"tags": "Geo, Meteo"
+    },
+    {
+		"title": "Python GDAL/ORG cookbook",
+		"url": "https://pcjericks.github.io/py-gdalogr-cookbook/",
+		"tags": "Geo, GDAL, Guide"
+    },
+    {
+		"title": "Coolify",
+		"url": "https://coolify.io/",
+		"tags": "Hosting, Self-hosting"
+    },
+    {
+		"title": "Rapids",
+		"url": "https://rapids.ai/",
+		"tags": "GPU, Data Science, AI"
+    },
+    {
+		"title": "Jakub Nowosad",
+		"url": "https://jakubnowosad.com/",
+		"tags": "Geo, Research, Blog"
+    },
+    {
+		"title": "Geocompx",
+		"url": "https://geocompx.org/",
+		"tags": "Book, Geo, Guide"
+    },
+    {
+		"title": "ITS Leeds ",
+		"url": "https://itsleeds.github.io/index.html",
+		"tags": "Geo, Guide"
+    },
+    {
+		"title": "Gee community",
+		"url": "https://gee-community-catalog.org/",
+		"tags": "Community, Geo, Meteo"
+    },
+    {
+		"title": "OpenLayers",
+		"url": "https://openlayers.org/",
+		"tags": "Library, Geo, Frontend, JavScript"
+    },
+    {
+		"title": "OSGeo",
+		"url": "https://www.osgeo.org/",
+		"tags": "Community, Geo, Open-Source, Event"
+    },
+    {
+		"title": "Mario Lopez",
+		"url": "https://brain.drmario.tech/about",
+		"tags": "Blog, Software"
+    },
+    {
+		"title": "Gdalraster",
+		"url": "https://usdaforestservice.github.io/gdalraster/",
+		"tags": "R, Geo, Library"
+    },
+    {
+		"title": "Earth Data Science",
+		"url": "https://www.earthdatascience.org/",
+		"tags": "Community, Geo, Guide"
+    },
+    {
+		"title": "ManKier",
+		"url": "https://www.mankier.com/",
+		"tags": "Bash, Guide"
+    },
+    {
+		"title": "Hckaday",
+		"url": "https://hackaday.com/",
+		"tags": "Community, Blog, Hacking"
+    },
+    {
+		"title": "Mark Litwintschik",
+		"url": "https://tech.marksblogg.com/",
+		"tags": "Blog, Geo"
+    },
+    {
+		"title": "Google OR-Tools",
+		"url": "https://developers.google.com/optimization",
+		"tags": "Software, Google, Open-Source, Library"
+    },
+    {
+		"title": "OpenLandMap",
+		"url": "https://openlandmap.github.io/book/",
+		"tags": "Geo, Open-Source"
+    },
+    {
+		"title": "Equi7Grid",
+		"url": "https://github.com/TUW-GEO/Equi7Grid",
+		"tags": "Geo, SRS, Open-Source, Data-Cube"
+    },
+    {
+		"title": "Digital Earth Africa",
+		"url": "https://docs.digitalearthafrica.org/en/latest/",
+		"tags": "Geo, Open-Source, Meteo"
+    },
+    {
+		"title": "Tensara",
+		"url": "https://tensara.org/",
+		"tags": "GPU, Challenge"
+    },
+    {
+		"title": "Kart",
+		"url": "https://kartproject.org/",
+		"tags": "SVC, Geo"
+    },
+    {
+		"title": "SONNYs LiDAR",
+		"url": "https://sonny.4lima.de/",
+		"tags": "Geo, Open-Source, DTM"
+    },
+    {
+		"title": "Radiant Earth",
+		"url": "https://radiant.earth/",
+		"tags": "Geo, Open-Source"
+    },
+    {
+		"title": "ChartDB",
+		"url": "https://chartdb.io/",
+		"tags": "Software, DataBase, Open-Source, Self-Hosting"
+    },
+    {
+		"title": "Japan Earth Observer",
+		"url": "https://www.japanearthobserver.com/",
+		"tags": "Blog, Space, Geo, Earth"
+    },
+    {
+		"title": "NWC SAF",
+		"url": "https://www.nwcsaf.org/",
+		"tags": "Meteo, Eumetsat"
+    },
+    {
+		"title": "SFCompute",
+		"url": "https://sfcompute.com/",
+		"tags": "HPC"
+    },
+    {
+		"title": "Maxime Labonne LLM Course",
+		"url": "https://github.com/mlabonne/llm-course",
+		"tags": "AI,LLM, Course"
+    },
+    {
+		"title": "MLFlow",
+		"url": "https://mlflow.org/",
+		"tags": "AI, MLOps, Open-Source"
+    },
+    {
+		"title": "BentoML",
+		"url": "https://www.bentoml.com/",
+		"tags": "AI, LLM"
+    },
+    {
+		"title": "DVC",
+		"url": "https://dvc.org/",
+		"tags": "AI, LLM, SVC"
+    },
+    {
+		"title": "DSPy",
+		"url": "https://dspy.ai/",
+		"tags": "AI, LLM"
+    },
+    {
+		"title": "AIFS Single 1.0 LLM",
+		"url": "https://huggingface.co/ecmwf/aifs-single-1.0",
+		"tags": "Meteo, AI, LLM"
+    },
+    {
+		"title": "Tobias Ahlin",
+		"url": "https://tobiasahlin.com/",
+		"tags": "Blog"
+    },
+    {
+		"title": "Elio Struyf",
+		"url": "https://www.eliostruyf.com/",
+		"tags": "Blog, Software Architect"
+    },
+    {
+		"title": "Peter mekhaeil",
+		"url": "https://www.petermekhaeil.com/",
+		"tags": "Blog"
+    },
+    {
+		"title": "EcoDataCube",
+		"url": "https://ecodatacube.eu/",
+		"tags": "Meteo, Geo, Earth"
+    },
+    {
+		"title": "Valkey",
+		"url": "https://valkey.io/",
+		"tags": "Open-Source, Database, Key/Value"
+    },
+    {
+		"title": "React SVGR",
+		"url": "https://react-svgr.com/",
+		"tags": "Library, Frontend, JavaScript"
+    },
+    {
+		"title": "Arri",
+		"url": "https://github.com/modiimedia/arri",
+		"tags": "Frontend, RPC, Framework"
+    },
+    {
+		"title": "LibGeos",
+		"url": "https://libgeos.org/",
+		"tags": "C++, Library, Geo"
+    },
+    {
+		"title": "Christian Penrod",
+		"url": "https://christianpenrod.com/",
+		"tags": "Blog"
+    },
+    {
+		"title": "José Carlos",
+		"url": "https://henestrosa.dev/",
+		"tags": "Blog"
+    },
+    {
+		"title": "Ahmad Shadeed",
+		"url": "https://ishadeed.com/",
+		"tags": "Blog"
+    },
+    {
+		"title": "CSS Tricks",
+		"url": "https://css-tricks.com/",
+		"tags": "Frontend, CSS, Guide"
+    },
+    {
+		"title": "LLVM Compiler Infrastructure",
+		"url": "https://llvm.org/",
+		"tags": "LLVM, Community, Library"
+    },
+    {
+		"title": "Data-Centric Introduction in Computing",
+		"url": "https://dcic-world.org/",
+		"tags": "Book, Computing"
+    },
+    {
+		"title": "CouchDB",
+		"url": "https://couchdb.apache.org/",
+		"tags": "Open-Source, Database, JSON"
+    },
+    {
+		"title": "Conventional Commits",
+		"url": "https://www.conventionalcommits.org/en/v1.0.0/",
+		"tags": "VCS, Guide"
+    },
+    {
+		"title": "Semantic Versioning",
+		"url": "https://semver.org/",
+		"tags": "VCS, Guide"
+    },
+    {
+		"title": "Levels fyi",
+		"url": "https://levels.fyi",
+		"tags": "Salary, Guide"
+    },
+    {
+		"title": "Pragmatic Bookshelf",
+		"url": "https://pragprog.com/",
+		"tags": "Book, Software"
+    },
+    {
+		"title": "Eric Arnebäck",
+		"url": "https://erkaman.github.io/index.html",
+		"tags": "Blog, Software, Computer-Graphic, GPU"
+    },
+    {
+		"title": "Dominik",
+		"url": "https://tkdodo.eu/blog",
+		"tags": "Blog"
+    },
+    {
+		"title": "Bogdan Mocanu",
+		"url": "https://tycro-games.github.io/",
+		"tags": "Blog, Computer-Graphic, Software"
+    },
+    {
+		"title": "So You Wana Be an AI Engineer?",
+		"url": "https://mapattacker.github.io/ai-engineer/",
+		"tags": "Guide, Engineer, AI"
+    },
+    {
+		"title": "D.O.R.F. Dev Blog",
+		"url": "https://www.dorf-rts.com/dev-blog",
+		"tags": "Guide, Game-Dev, Game, Blog"
+    },
+    {
+		"title": "PyCon",
+		"url": "https://pycon.org/",
+		"tags": "Community, Python, Event"
+    },
+    {
+		"title": "Iconify",
+		"url": "https://iconify.design/",
+		"tags": "Frontend, Icon, Open-Source"
+    },
+    {
+		"title": "Nanostores",
+		"url": "https://github.com/nanostores/nanostores",
+		"tags": "Open-Source, Frontend, Framework"
+    },
+    {
+		"title": "Material Design 3",
+		"url": "https://m3.material.io/",
+		"tags": "Guide, Google"
+    },
+    {
+		"title": "Adam on DevOps",
+		"url": "https://adambrodziak.pl/",
+		"tags": "DevOps, Blog"
+    },
+    {
+		"title": "Fuse",
+		"url": "https://www.fusejs.io/demo.html",
+		"tags": "Frontend, Search, Library"
+    },
+    {
+		"title": "Measurement units",
+		"url": "https://stackoverflow.com/questions/609517/why-em-instead-of-px",
+		"tags": "Frontend, CSS"
+    },
+    {
+		"title": "Dockerfile good practices on Node",
+		"url": "https://adambrodziak.pl/dockerfile-good-practices-for-node-and-npm",
+		"tags": "DevOps, Docker"
+    },
+    {
+		"title": "A Case for Making Your Own Engine",
+		"url": "https://www.youtube.com/watch?v=Qj6dCd8KPKc",
+		"tags": "Game-Dev, Talk"
+    },
+	{
+		"title": "Low-traffic neighbourhood tool v2",
+		"url": "https://github.com/a-b-street/ltn",
+		"tags": "Geo, Map, Community"
+	},
+	{
+		"title": "Gonzalo Mateo García",
+		"url": "https://www.uv.es/gonmagar/index.html",
+		"tags": "Geo, Research, Blog"
+	},
+	{
+		"title": "Nate Moore",
+		"url": "https://natemoo.re/",
+		"tags": "Blog"
+	},
+	{
+		"title": "Fabio Crameri",
+		"url": "https://www.fabiocrameri.ch/",
+		"tags": "Blog"
+	}
+]

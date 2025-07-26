@@ -1,0 +1,21 @@
+---
+export interface Props {
+    url:string;
+    title:string;
+    class?:string;
+}
+const {url, title, class:className, ...rest} = Astro.props
+
+---
+<a class={className} {...rest} href={url}>{title}</a>
+
+<style lang="scss">
+    @use '../styles/_variables' as v;
+    a {
+        text-underline-offset: 2px;
+    } 
+
+    a:hover {
+        text-decoration-color: v.$portfolio-underline-color;
+    }
+</style>

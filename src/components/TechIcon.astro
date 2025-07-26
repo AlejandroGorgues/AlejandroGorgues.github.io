@@ -1,0 +1,21 @@
+---
+export interface Props {
+    title:string;
+}
+const {title} = Astro.props;
+---
+<div style="flex: 0 1 100px; text-align: center; padding:1rem 0; user-select: none;">
+    <slot/>
+    <p style="opacity: .5; transition: opacity 0.3s ease;">{title}</p>
+</div>
+
+<style lang="scss">
+@use '../styles/_variables' as v;
+div:hover {
+    background-color: v.$portfolio-hover-color;
+}
+
+div:hover p{
+    opacity: 1 !important;
+}
+</style>

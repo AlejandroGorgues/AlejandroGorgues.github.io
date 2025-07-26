@@ -1,0 +1,32 @@
+---
+import type { PaginationLink } from '../types/models/pagination.interface';
+
+
+interface Props {
+	nextUrl?: PaginationLink;
+	prevUrl?: PaginationLink;
+}
+
+const { nextUrl, prevUrl } = Astro.props;
+/**
+ * This file is in charge of the rendering of the pagination elements
+ * It will render the left or right arrows between pages that would allow to the start left, start right, left  of the current page or right to
+ * the current page.
+ */
+---
+{
+	(prevUrl || nextUrl) && (
+		<nav style="margin-top: 2rem; display: flex; align-items: center; column-gap: 1rem; justify-content: center;">
+			{prevUrl && (
+				<a style="padding-top: 0.5rem; padding-bottom: 0.5rem;" data-astro-prefetch href={prevUrl.url}>
+					{prevUrl.text ? prevUrl.text : "Previous"}
+				</a>
+			)}
+			{nextUrl && (
+				<a style="padding-top: 0.5rem; padding-bottom: 0.5rem;" data-astro-prefetch href={nextUrl.url}>
+					{nextUrl.text ? nextUrl.text : "Next"}
+				</a>
+			)}
+		</nav>
+	)
+}

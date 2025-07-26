@@ -1,0 +1,56 @@
+---
+interface urlParam {
+  baseUrl: string,
+  currUrl: string
+}
+
+const {pageTitle} = Astro.props
+
+const url = Astro.url.pathname;
+let urlSplitted = url.split('/').filter(element => element !== '')
+const index = urlSplitted.indexOf('entry');
+if (index > -1) { // only splice array when item is found
+  urlSplitted.splice(index,2); // 2nd parameter means remove one item only
+  urlSplitted.push(pageTitle)
+}else{
+  urlSplitted.splice(urlSplitted.length-1,1,"Page "+urlSplitted.at(-1))
+}
+const urlObj:urlParam[] = urlSplitted.map((element:string, index:number) =>{
+  return {
+    baseUrl: element,
+    currUrl:'/'+urlSplitted.slice(0, index+1).join('/')
+  }
+})
+const urlBase = urlObj.pop()
+---
+{ 
+  urlObj.length > 0 &&
+    <nav class="o-wrapper" style="margin-top: 2rem;">
+      <ul>
+        {
+          urlObj.map((entry: urlParam, index:number)=>{
+            return(
+            <li style="display: inline-block;" class="rich-text">
+              { !!index && <i class="angle-right-arrow"/> }
+              <a href={entry.currUrl}>
+                { entry.baseUrl[0].toUpperCase() + entry.baseUrl.slice(1) }
+              </a>
+              { <i class="angle-right-arrow"/> }
+            </li>
+          )})
+        }
+        <li style="display: inline-block;" >{urlBase?.baseUrl}</li>
+      </ul>
+    </nav>
+}
+
+<style>
+.angle-right-arrow:after {
+  position: relative;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  top: 0px;
+  padding: 0 .2rem;
+  content: ">";
+}
+</style>

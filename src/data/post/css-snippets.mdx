@@ -1,0 +1,71 @@
+---
+title: CSS - Snippets
+pubDate: 2025-04-20
+modDate: 2025-04-20
+description: <PostDescription>Some CSS concepts that helped me</PostDescription>
+image:
+    url: '/post/CSSLogo.svg'
+    alt: 'CSSLogo'
+tags: ["Frontend", "CSS"]
+---
+## Hover to affect other element (even if it is not a child)
+Imagine that you have a set of buttons and a list of words, and once you hover over a button,
+the words that are the same on the list changed it's color.
+
+One could think to do it by JavaScript triggers, 
+but with CSS there is a possibility to implement this functionality.
+
+To make it possible, we need to have each button defined with it's own id, an each word also with a recognizable id or class.
+
+Once we know everything, we can implement the solution as mentioned in the [article](https://vibrantwebs.medium.com/css-hover-to-affect-other-element-even-if-other-element-is-not-a-child-4f9ccf54bb5c)
+written by [Andrew Musholt](https://vibrantwebs.medium.com/).
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Browser</title>
+</head>
+
+<body>
+    <div id="buildings"><h3>Buildings</h3></div>
+    <div id="colours"><h3>Colours</h3></div>
+
+    <ul>
+        <li class="building">House</li>
+        <li class="building">Skyscrapper</li>
+    </ul>
+
+    <ul>
+        <li class="colour">Red</li>
+        <li class="colour">Blue</li>
+    </ul>
+</body>
+
+</html>
+```
+```css
+body:has(#buildings:hover) .building {
+  background-color: green;
+}
+```
+> This works because every element has **body** as the parent of both the list and the div.
+
+## Override element.style using CSS
+Sometimes when you import an style you did not developed, you want to change
+specific elements without modifying their associated style, and when you do it, turns out it does not update it.
+
+Although isn't a good practice, one solution could be to override it. 
+
+Explained in the [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/CSS/important), 
+when can see also a clear example [answered](https://stackoverflow.com/questions/14910608/override-element-style-using-css) in StackOverflow by [DiscoInfiltrator](https://stackoverflow.com/users/2029085/discoinfiltrator),
+where by using the `!important` variable after the property value, the property is override by the one defined here.
+```css
+li {
+    display: inline !important;
+}
+``` 
+In this case, the display would be override to use the inline value.

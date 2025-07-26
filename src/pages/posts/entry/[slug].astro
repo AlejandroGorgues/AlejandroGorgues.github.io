@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from 'astro:content';
+import MarkdownPostLayout from '../../../layouts/MarkdownPost.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<"post">;
+}
+
+export async function getStaticPaths() {
+  const posts: CollectionEntry<'post'>[] = await getCollection('post');
+
+  // Generar rutas para Post individuales (con slug)
+  return posts.map((post) => {
+    return {
+      params: {
+        slug: post.id,
+      }, 
+      props: { post },
+    };
+  });
+}
+
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+---
+<MarkdownPostLayout frontmatter={post.data}>
+    <Content />
+</MarkdownPostLayout>

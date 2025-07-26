@@ -1,0 +1,165 @@
+---
+title: Dynamic routing in Astro
+pubDate: 2025-04-15
+modDate: 2025-04-15
+description: <PostDescription>On my blog development, routing is one of my core components, which changed it's structure a lot. With this post I wanted to share one of my initial ideas that give me a bit of headache hoping it helps you</PostDescription>
+image:
+    url: '/post/AstroLogo.svg'
+    alt: 'AstroLogo'
+tags: ["Frontend", "Astro", "Blog"]
+---
+On the first phases of my blog development I was experimenting with Astro and dynamic routing. 
+The main idea was to be able to generate paths associated with each article of the blog where the route could be 
+`/blog/{year}/{month}/{day}`, `/blog/{year}/{month}`, `/blog/{year}` and `/blog`. This way it would be possible to see all articles in a day, month or year.
+
+Although this approach seems like one of many approaches, for a basic blog, it kinda overkill it, as in my mind, writting thousands of posts and getting
+millions of views was not my objective, for that, I decided to change it into the current one. However I find it interesting to design and implement, so
+here it goes. 
+
+## Dynamic Astro structure
+To implement such process in Astro and by taking advantage of the [deep nested](https://docs.astro.build/es/guides/routing/#par%C3%A1metros-rest) routing technology, the initial idea would be something like the diagram below.
+``` ansi
+blog
+|-- [...date] 
+|    |-- article
+|    |    |-- [slug].astro
+|    | -- index.astro
+|   
+``` 
+
+This way, there where three main components:
+* `[...date]` rest param on the folder which allow to generate deeper paths like `/one/two/three` or `/one/two` at the same time.
+* `index.astro` in charged on the item list management.
+* `[slug].astro` in charged on how to represent each item.
+
+Here, a route example could be `/blog/2025/07/03/article/How-to-write-blogs`.
+
+Despite being three componentes, the first one only refers to how to name the folder, and because of that, only the rest are described below.
+
+## `index.astro`
+
+1. By following the Astro structure, on the SSR declaration we need to generate all possible routes through the `getStaticPaths()`[^1] <sup> </sup> [^2].
+To be able to do that, first we get the list of posts and access the pubDate (refering to the publication date that each entry should have) of all of them, and then
+create all possible routes.
+```js
+---
+export async function getStaticPaths() {
+  const allArticles = await getCollection("post");
+  // Generate routes based on each possible date
+  const uniqueDates = new Set();
+  allArticles.forEach((article) => {
+    const articleDate = new Date(article.data.pubDate);
+    const articleYear = articleDate.getFullYear().toString();
+    const articleMonth = (articleDate.getMonth() + 1).toString().padStart(2, "0");
+    const articleDay = articleDate.getDate().toString().padStart(2, "0");
+
+    // Add all combinations
+    // and add empty route for all articles
+    uniqueDates.add('');
+    uniqueDates.add(articleYear);
+    uniqueDates.add(`${articleYear}/${articleMonth}`);
+    uniqueDates.add(`${articleYear}/${articleMonth}/${articleDay}`);
+  });
+
+  Array.from(uniqueDates)
+        .map((date) => ({
+          params: {
+            date: date
+          },
+        }));
+}
+// --- //
+---
+```
+2. After generating all possible of routes, when a user enters through one of the them we will need to load only the associated ones.
+
+To be able to do that we will need to get all posts thorugh the collection function call and the date part from the URL using `Astrop.params`, 
+and once we have the date, it is parsed and use for article filtering to get the ones that contains all parts of the date.
+
+```js
+---
+// --- //
+const allArticles = await getCollection("post");
+const { date } = Astro.params as Params;
+// This could be for 2025/03 path [2025, 03, undefined]
+const [year, month, day] = date?.split('/') || [];
+
+const articles = allArticles
+.filter((article) => {
+  const articleDate = new Date(article.data.pubDate);
+  const articleYear = articleDate.getFullYear().toString();
+  const articleMonth = (articleDate.getMonth() + 1).toString().padStart(2, "0");
+  const articleDay = articleDate.getDate().toString().padStart(2, "0");
+  return (
+    (!year || articleYear === year) &&
+    (!month || articleMonth === month) &&
+      (!day || articleDay === day) && true 
+    );
+  })
+  .sort((a,b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+---
+```
+
+> Because we allow paths to be `/blog/`, with the piece of code below, the `true` value permits to implement the case to return all entries:
+>
+> ```jsx
+> return (
+>    (!year || articleYear === year) &&
+>    (!month || articleMonth === month) &&
+>    (!day || articleDay === day) && true 
+> );
+> ```
+
+And then you just need to iterate over each article entry.
+
+```jsx
+<ul>
+  {articles.map((article: any) => 
+  <li >
+    <BlogArticle url={
+      `/blog/`+
+      `${article.data.pubDate.getFullYear().toString()}/`+
+      `${(article.data.pubDate.getMonth()+1).toString().padStart(2, "0")}/`+
+      `${article.data.pubDate.getDate().toString().padStart(2, "0")}/`+
+      `article/` +
+      `${article.id}`
+    }/>
+  </li>
+  )}
+</ul>
+```
+## `[slug].astro`
+Because each post contains the full date route, it's only needed to generate through the `getStaticPaths()` function, the complete path, which reduces complexity.
+```jsx
+---
+export async function getStaticPaths() {
+  const allArticles = await getCollection('blog');
+
+  return allArticles.map((article) => {
+    const articleDate = new Date(article.data.pubDate);
+    const articleYear = articleDate.getFullYear().toString();
+    const articleMonth = (articleDate.getMonth() + 1).toString().padStart(2, "0");
+    const articleDay = articleDate.getDate().toString().padStart(2, "0");
+
+    return {
+      params: {
+        slug: article.id,
+        date: `${articleYear}/${articleMonth}/${articleDay}`
+      }, 
+      props: { article },
+    };
+  });
+}
+const { article } = Astro.props;
+const { Content } = await render(article);
+---
+```
+Then, after the static part, you only need to render the content
+```jsx
+<MarkdownArticleLayout frontmatter={article.data}>
+    <Content />
+</MarkdownArticleLayout>
+```
+---
+[^1]: https://docs.astro.build/en/reference/errors/get-static-paths-required/
+[^2]: https://daily-dev-tips.com/posts/astro-moving-from-collections-to-dynamic-routing/

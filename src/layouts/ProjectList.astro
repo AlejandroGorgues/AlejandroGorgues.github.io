@@ -1,0 +1,31 @@
+---
+import MarkdownProjectLayout from "../layouts/MarkdownProject.astro";
+import { render, type CollectionEntry } from 'astro:content';
+interface Props {
+  projects: Map<string,CollectionEntry<"project">[]>;
+}
+const { projects } = Astro.props;
+---
+<section style=" justify-self: center;">
+  {
+    [...projects].map(([_, projectsList]) =>{
+      return(
+        <div style="width: 90ch;">
+          <ul style="list-style-type: none">
+            {
+                projectsList.map(async (project)=>{
+                    const {Content} = await render(project);
+                    return (
+                      <li>
+                        <MarkdownProjectLayout frontmatter={project.data}>
+                            <Content />
+                        </MarkdownProjectLayout>
+                      </li>
+                    )
+                })
+            }
+          </ul>
+        </div>
+        );
+    })}
+</section>

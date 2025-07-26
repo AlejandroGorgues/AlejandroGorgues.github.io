@@ -1,0 +1,33 @@
+---
+import {dateToStr} from "../scripts/dateFormat"
+interface Props {
+  date: Date,
+  modDate: Date
+}
+const {date, modDate} = Astro.props;
+
+const dateStr = dateToStr(date)
+const modDateStr = dateToStr(modDate)
+
+const dateFormatted:string = new Date(dateStr).toLocaleString('es', {day:'numeric', month: 'short', year:'numeric'});
+const modDateFormatted:string = new Date(modDateStr).toLocaleString('es', {day:'numeric', month: 'short', year:'numeric'});
+---
+<div style="display:flex; flex-direction: column;">
+  <p style="margin: 0; padding: 0; font-weight: bold;">
+      Published on <span style="opacity: .75;">{dateFormatted}</span>
+  </p>
+  {
+   dateFormatted !== modDateFormatted &&
+    <p style="margin: 0; padding: 0; opacity: .75; font-style: italic; font-size: 0.95em;">
+        Last modification {modDateFormatted}
+    </p>
+  }
+
+</div>
+
+<style lang="scss">
+  @use '../styles/_variables' as v;
+  span {
+    color: v.$portfolio-date-color;
+  }
+</style>

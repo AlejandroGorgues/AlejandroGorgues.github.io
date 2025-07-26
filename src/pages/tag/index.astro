@@ -1,0 +1,102 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+/**
+ * Generate an array letters from the dictionary
+ * given an start letter and an end letter
+ * @param charInit 
+ * @param charEnd 
+ * @return string[] String of letters 
+ */
+const genCharArray= ((charInit:string, charEnd:string) =>
+   {
+    var dictionary = [], i = charInit.charCodeAt(0), j = charEnd.charCodeAt(0);
+    for (; i <= j; ++i) {
+      dictionary.push(String.fromCharCode(i));
+    }
+    return dictionary;
+});
+
+/**
+ * Given a list of words, group each word as value by the same starting letter
+ * and as the key, the starting letter
+ * @param arr 
+ * @return { [x: string]: string[]; } Object of letter: words 
+ */
+const groupByFirstLetter =((arr: string[])=>{
+  return arr.reduce((store: { [x: string]: string[]; }, word: string) =>{
+    const letter = word.charAt(0)
+    const keyStore = (
+      store[letter] || (store[letter] = [])
+    );
+    keyStore.push(word);
+    return store
+  }, {})
+})
+
+/**
+ * Given a list of tags, count the number of posts that contain each tag
+ * @param arr 
+ * @return { [x: string]: number; } Object of letter: words 
+ */
+const getPostsByTag =((arr: string[])=>{
+  return arr.reduce((store: { [x: string]: number; }, word: string) =>{
+    if(store[word]){
+        store[word] = store[word] +1;
+    }else{
+      store[word] = 1;
+    }
+    return store;
+  }, {})
+})
+const posts = await getCollection("post");
+
+const tagsFromPost = posts.map((post) => post.data.tags).flat().sort();
+const tagsFromPostGrouped = getPostsByTag(tagsFromPost);
+---
+<BaseLayout>
+  <header>
+    <h3>Tags</h3>
+  </header>
+  <section class="rich-text" style="display: flex; flex-direction: column; align-items: center;">
+    {
+      Object.entries(tagsFromPostGrouped).map(([tag, amount]) =>{
+        return (
+            <p>
+              <a href={`/tag/${tag}`}>{tag}</a>
+              -
+              {amount} {amount === 1 ? "Post": "Posts" }
+            </p>
+        );
+      })
+    }
+  </section>
+</BaseLayout>
+
+<style lang="scss">
+  h3 {
+    font-size: 2rem; 
+    font-weight: 700; 
+    justify-self: center;
+
+    @media (min-width: 640px) {
+      font-size:3rem;
+      max-width: 80rem
+    }
+    @media (min-width: 1024px) {
+      font-size:4rem
+    }
+  }
+
+    /* Taken from https://stackoverflow.com/questions/556153/inline-elements-shifting-when-made-bold-on-hover/20249560#20249560
+    and https://stackoverflow.com/questions/5687035/css-bolding-some-text-without-changing-its-containers-size */
+    /* .tag__item::after {
+        display: block;
+        content: attr(data-label);
+        font-weight: bold;
+        height: 1px;
+        overflow: hidden;
+        visibility: hidden;
+    } */
+
+</style>

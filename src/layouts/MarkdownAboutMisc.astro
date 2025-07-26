@@ -1,0 +1,26 @@
+---
+import type { Misc } from "../types/models/portfolioEntry.interface";
+import {dateToStr} from "../scripts/dateFormat"
+interface Props {
+  frontmatter: Misc;
+}
+
+const {frontmatter} = Astro.props;
+const pubDate = dateToStr(frontmatter.pubDate)
+---
+<section style="padding: 10px;">
+    <h3 style="font-size: 1.75rem; font-weight: 700; opacity: .85;">{frontmatter.title}</h3>
+    <h3 style="font-size: 1.5rem; font-weight: 500; font-style: italic; opacity: .75; margin-top: -.5rem;">{frontmatter.entity}</h3>
+    <h2 style="font-size: 1.25rem; font-weight: 700; opacity: .75; margin-top: -.5rem;">{pubDate}</h2>
+</section>
+
+<style lang="scss">
+    @use '../styles/_variables' as v;
+    section:hover {
+        background-color: v.$portfolio-hover-color;
+        border-radius: 5px;
+        display:flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    } 
+</style>

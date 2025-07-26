@@ -1,0 +1,39 @@
+---
+import MarkdownAboutMiscLayout from './MarkdownAboutMisc.astro';
+import { render, type CollectionEntry } from 'astro:content';
+interface Props {
+  infos: CollectionEntry<"miscellaneous">[];
+  title:string;
+}
+const { infos, title } = Astro.props;
+---
+<section>
+  <h2 style="font-size: 2.5rem; font-weight: 700; position:relative; overflow:hidden;">{title}</h2>
+  <div style="display: grid; grid-template-columns: repeat( auto-fill, minmax(250px, 1fr) );">
+    {
+      infos.map(async (info) =>{
+          const {Content} = await render(info); 
+          return(
+            <MarkdownAboutMiscLayout frontmatter={info.data}>
+                <Content />
+            </MarkdownAboutMiscLayout>
+          );
+      })
+    }
+  </div>
+</section>
+
+
+<style lang="scss">
+  h2:after{
+      content:'';
+      top: 50%;
+      height: 0;
+      margin-top: 2px;
+      border-top:groove 2px;
+      width:50%;
+      position:absolute;
+      margin-right:-100%;/* reduce size virtually to zero at 100% */
+      margin-left:1%;/* set margin from end  text */
+  }
+</style>

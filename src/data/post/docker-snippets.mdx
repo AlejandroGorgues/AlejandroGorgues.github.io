@@ -1,0 +1,227 @@
+---
+title: Docker - Snippets
+pubDate: 2025-04-02
+modDate: 2025-04-02
+description: <PostDescription>Docker tips</PostDescription>
+image:
+    url: '/post/DockerLogo.svg'
+    alt: 'DockerLogo'
+tags: ["DevOps", "Docker"]
+---
+
+Docker is a rich tool for developers, offering a straightforward solution for creating fast and clean environments
+where we can work without creating conflict between others environments.
+
+The purpose of this post is:
+* Firstly, to present a overview of my most frequently used commands, templates, deployments or processes.
+* Secondly, to serve as a quicklook to other developers to remember or learn something new.
+
+## Docker
+### Containers and images overview
+* `docker ps`: see running containers
+* `docker container ls -a`: see all containers, even those that have stopped
+* `docker images`: see images on disk
+### Interact with images
+* `docker run <image_name>`: run an image as a container
+    * options
+        * `-p`: expose a port inside the container to the host e.g. -p 8123:8123
+        * `-v`: mount a volume on the host to the container e.g. -v /tmp:/usr
+        * `-d`: run in detached mode
+        * `-ti`: add terminal driver and run in interactive mode
+        * `-e`: add environment variable e.g. -e MYSQL_USER=user
+        * `--name`: designate a name for the container e.g. `--name my_container`
+```bash
+sudo docker run -d -ti \
+-p 8123:8123 -v /tmp/usr \
+-e MYSQL_USER=user \
+--name my_container \
+ubuntu:18.04 /bin/bash
+```
+
+* `docker exec`: run a command in a running container 
+    * e.g. `docker exec -ti <container_name> /bin/bash`: log in to the running container through an interactive shell
+### Remove
+* `docker kill <container_name>`: kill a container process
+* `docker container rm <container_name>`: remove a container from storage
+* `docker rmi <image_name>`: remove an image
+### Build
+* `docker build -t <image_tag_name>`: build a new image using the Dockerfile in the current directory
+* `docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]`: change name of an existing image
+* `docker push <image_tag_name>`: push the image onto the Docker registry
+
+## Docker Compose
+### Sharing named volume between multiple containers
+Taken from the StackOverflow [question](https://stackoverflow.com/questions/44284484/docker-compose-share-named-volume-between-multiple-containers)
+and answered by different users, we can differenciated between multiple options.
+#### Named volumes[^1]
+```yml
+services:
+  nginx:
+    container_name: nginx
+    build: ./nginx/
+
+    volumes:
+      - static-content:/usr/src/app
+
+  web:
+    container_name: web
+    env_file: .env
+    volumes:
+      - static-content:/usr/src/app/public
+    environment:
+      - NODE_ENV=production
+
+    command: npm run package
+
+volumes:
+  static-content:
+```
+#### Unnamed volumes[^1]
+```yml
+services:
+
+  nginx:
+      build: ./nginx/
+      ports:
+          - 80:80
+      links:
+          - php
+      volumes:
+          - ./appdata:/appdata
+
+  php:
+      build: ./php/
+      expose:
+          - 9000
+      volumes:
+          - ./appdata:/appdata
+```
+#### Extension fields[^2]
+```yml
+x-services-volume:
+  &services-volume
+  type: bind
+  source: ./appdata
+  target: /appdata
+
+services:
+
+    nginx:
+        build: ./nginx/
+        ports:
+            - 80:80
+        links:
+            - php
+        volumes: *services-volume
+
+    php:
+        build: ./php/
+        expose:
+            - 9000
+        # Use same way as for nginx if target override not needed.
+        volumes:
+            - <<: *services-volume
+            target: /opt/target-override
+```
+## Extensions aliases
+Extensions aliases (used in the previous section, but called as extension fields), can also be used for other components like functions or services, allowing to reduce complexity
+while adding the possibility to extend thems.
+
+For example, by taking the example described in the Medium [article](https://medium.com/@kinghuang/docker-compose-anchors-aliases-extensions-a1e4105d70bd) written by
+[King Chung Huang](https://medium.com/@kinghuang?source=post_page---byline--a1e4105d70bd---------------------------------------), we can transform
+the stack for the `nodeinfo` and `echoit` services from the [Docker Compose file for OpenFaaS](https://github.com/openfaas/faas/blob/9af6ff61b4838c997d084d904442038afcde0f6a/docker-compose.yml) (
+ a serverless framework for Docker & Kubernetes that defines functions as services which can be called via the FaaS gateway).
+ ```yml
+ services:
+  # Node.js gives OS info about the node (Host)
+  nodeinfo:
+    image: functions/nodeinfo:latest
+    labels:
+      function: "true"
+    depends_on:
+      - gateway
+    networks:
+      - functions
+    environment:
+      no_proxy: "gateway"
+      https_proxy: $https_proxy
+    deploy:
+      placement:
+        constraints:
+          - 'node.platform.os == linux'
+  # Uses `cat` to echo back response, fastest function to execute.
+  echoit:
+    image: functions/alpine:health
+    labels:
+      function: "true"
+    depends_on:
+      - gateway
+    networks:
+      - functions
+    environment:
+      fprocess: "cat"
+      no_proxy: "gateway"
+      https_proxy: $https_proxy
+    deploy:
+      placement:
+        constraints:
+          - 'node.platform.os == linux'
+ ```
+ into
+ ```yml
+ # Basic function options
+x-function: &function
+  labels:
+    function: "true"
+  depends_on:
+    - gateway
+  networks:
+    - functions
+# Linux placement
+x-linux: &linux-only
+  deploy:
+    placement:
+      constraints:
+        - 'node.platform.os == linux'
+# Windows placement
+x-windows: &windows-only
+  deploy:
+    placement:
+      constraints:
+        - 'node.platform.os == windows'
+services:
+  # Node.js gives OS info about the node (Host)
+  nodeinfo:
+    <<: *function
+    <<: *linux-only
+    image: functions/nodeinfo:latest
+    environment:
+      no_proxy: "gateway"
+      https_proxy: $https_proxy
+  # Uses `cat` to echo back response, fastest function to execute.
+  echoit:
+    <<: *function
+    <<: *linux-only
+    image: functions/alpine:health
+    environment:
+      fprocess: "cat"
+      no_proxy: "gateway"
+      https_proxy: $https_proxy
+ ```
+
+This allows us to apply the **'Don't repeat yourself'** (**DRY**) principle to the YAML field.
+
+To declare an extension, we put it at the top-level of the file and use 'x-' before the extension alias, and an anchor before the service mapping name `function`. 
+The word associated to the anchor will be the one used to call this extension from anywhere.
+
+To use the extension declaration, we simply add it to the top of the service declaration where it's going to be used through the `<<: *function` key-value naming convention,
+where function refers to the mapping name we set it before.
+
+There are more ways to use the extension feature, which can be seen in the [documentation](https://docs.docker.com/reference/compose-file/extension/). For example, you can use it without the anchor behaviour or with the merging feature. However, I have not yet used these.
+
+---
+## Sources
+* https://github.com/etture/dev_notes/issues/10
+
+[^1]: https://docs.docker.com/compose/compose-file/07-volumes/
+[^2]: https://docs.docker.com/reference/compose-file/extension/

@@ -1,0 +1,50 @@
+---
+/* 
+* Because even though Astro allows to import easily SVG's
+* in the Server Side Rendering environment as an Astro component,
+* it does not allow to import dynamically.
+* To get a solution I found out this solution from Dániel Sipos in his blog that works really well
+* https://blog.siposdani87.com/posts/create-dynamic-svg-component-in-astro-project
+*/ 
+
+// Parse raw SVG strings into a DOM-like structure
+import { parse } from "node-html-parser";
+
+const files = import.meta.glob<string>("../assets/post/*.svg", {
+    query: "?raw",
+});
+
+export interface Props {
+    src: string;
+    class: string;
+}
+
+/**
+* Asynchronous function that takes the name of an SVG file and returns its attributes and inner HTML.
+* @param src svg path to look for
+* @return { attributes: object, innerHTML:string }
+**/
+const getSVG = async (src: string) => {
+    const filePath = `../assets${src}`;
+    if (!(filePath in files)) {
+        throw new Error(`${filePath} not found`);
+    }
+
+    const { default: file } = await files[filePath]() as unknown as { default: string };
+    const root = parse(file);
+
+    const svg = root.querySelector("svg") as unknown as SVGElement;
+    const { attributes, innerHTML } = svg;
+    return {
+        attributes,
+        innerHTML,
+    };
+}
+
+const { src, ...attributes } = Astro.props;
+const { attributes: baseAttributes, innerHTML } = await getSVG(src);
+
+const svgAttributes = { ...baseAttributes, ...attributes };
+
+---
+<svg {...svgAttributes} set:html={innerHTML} />

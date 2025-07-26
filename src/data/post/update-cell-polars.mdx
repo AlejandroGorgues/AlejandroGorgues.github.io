@@ -1,0 +1,88 @@
+---
+title: Efficient way to update a single cell of Polars DataFrame
+pubDate: 2025-02-14
+modDate: 2025-02-14
+description: <PostDescription>Through this post I wanted to share one of the basic concept if you are using Polars</PostDescription>
+image:
+    url: '/post/PolarsLogo.svg'
+    alt: 'PolarsLogo'
+tags: ["Code", "Polars"]
+---
+Polars use cases are hard to find due to being rather new compared to Pandas, and hard to adopt completely.
+
+When I looked for the updating term in Polars, by looking the various answers provided by [mcrumiller](https://github.com/mcrumiller) at the GitHub issue [#5973](https://github.com/pola-rs/polars/issues/5973) 
+in the Polars repository, I found out various ways to do it, each one more complex but which they offer readability and efficiency:
+* Generate a new DataFrame, which allows to show trazability.
+* Play with the Lazy DataFrame concept that relies on compute all preprocessing at the same time taking into approach query optimisation.
+* Use mutation.
+
+Although it is written in the issue, I wanted to show here the most used ones (which depends on the case).
+
+## Mutations
+```python
+import polars as pl
+
+df = pl.DataFrame({
+    'a': range(5),
+    'b': range(5)
+})
+PYTHON-OUTPUT
+shape: (5, 2)
+┌─────┬─────┐
+│ a   ┆ b   │
+│ --- ┆ --- │
+│ i64 ┆ i64 │
+╞═════╪═════╡
+│ 0   ┆ 0   │
+│ 1   ┆ 1   │
+│ 2   ┆ 2   │
+│ 3   ┆ 3   │
+│ 4   ┆ 4   │
+└─────┴─────┘
+END PYTHON-OUTPUT
+df[3, 'b'] = 99
+df
+PYTHON-OUTPUT
+shape: (5, 2)
+┌─────┬─────┐
+│ a   ┆ b   │
+│ --- ┆ --- │
+│ i64 ┆ i64 │
+╞═════╪═════╡
+│ 0   ┆ 0   │
+│ 1   ┆ 1   │
+│ 2   ┆ 2   │
+│ 3   ┆ 99  │
+│ 4   ┆ 4   │
+└─────┴─────┘
+```
+## Lazy DataFrame
+```python
+import polars as pl
+from polars import col, when
+
+df = pl.DataFrame({
+    'a': range(5),
+    'b': range(5)
+})
+
+df = df.lazy().with_row_count(name="row").with_columns(
+    when(col("row") == 3).then(99)
+    .otherwise(col('b'))
+    .alias('b')
+).drop("row").collect()
+df
+PYTHON-OUTPUT
+shape: (5, 2)
+┌─────┬─────┐
+│ a   ┆ b   │
+│ --- ┆ --- │
+│ i64 ┆ i64 │
+╞═════╪═════╡
+│ 0   ┆ 0   │
+│ 1   ┆ 1   │
+│ 2   ┆ 2   │
+│ 3   ┆ 99  │
+│ 4   ┆ 4   │
+└─────┴─────┘
+```

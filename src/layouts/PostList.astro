@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from "astro:content";
+import PostEntry from "../layouts/PostEntry.astro";
+interface Props {
+  posts: Map<string,CollectionEntry<"post">[]>;
+}
+const { posts } = Astro.props;
+---
+<section style="display: flex; flex-direction: column; justify-self: center;">
+  {
+    [...posts].map(([date, posts]) =>{
+      return(
+          <div style="width: 90ch;">
+            <ul style="list-style-type: none;">
+              {posts.map((post: any) => 
+              <li>
+                <PostEntry url={
+                  `/posts/`+
+                  'entry/' +
+                  `${post.id}`
+                } 
+                title={post.data.title} 
+                description={post.data.description}
+                date={post.data.pubDate} 
+                modDate={post.data.modDate} 
+                image={post.data.image}/>
+              </li>
+              )}
+            </ul>
+          </div>
+        );
+    })}
+</section>

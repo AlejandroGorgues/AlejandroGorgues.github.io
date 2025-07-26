@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from "astro:content";
+import ProjectListLayout from "../../layouts/ProjectList.astro";
+import { groupByDate } from "../../scripts/dateFormat";
+import Pagination from "../../components/Pagination.astro";
+import type { CollectionEntry } from 'astro:content';
+import type { GetStaticPathsOptions, Page } from 'astro';
+export interface Props {
+  page: Page;
+}
+
+export async function getStaticPaths({paginate} : GetStaticPathsOptions) {
+  let projects: CollectionEntry<'project'>[] = await getCollection("project");
+  // Generar rutas únicas basadas en las fechas de los articles
+  projects = projects.sort((a,b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  return paginate(
+  projects, 
+      {pageSize:3}
+    );
+}
+
+const {page} = Astro.props;
+const paginationProps = {
+	...(page.url.prev && {
+		prevUrl: {
+			text: "← Previous Page",
+			url: page.url.prev,
+		},
+	}),
+	...(page.url.next && {
+		nextUrl: {
+			text: "Next Page →",
+			url: page.url.next,
+		},
+	}),
+};
+const projects = groupByDate(page.data, '', 'pubDate');
+console.log()
+---
+
+<BaseLayout>
+  <header>
+    <h1>Things I developed somehow...</h2>
+  </header>
+  {
+    projects.size > 0 ?
+      <ProjectListLayout projects={projects} />
+      <Pagination prevUrl={paginationProps.prevUrl} nextUrl={paginationProps.nextUrl}/>
+      :
+      <div style="justify-self: center;">Projects soon to be published</div>
+  }
+</BaseLayout>
+
+<style lang="scss">
+  h1 {
+    font-size: 2rem; 
+    font-weight: 700; 
+    justify-self: center;
+    max-width: 70ch;
+    
+    @media (min-width: 640px) {
+      font-size:3rem;
+      max-width: 80rem
+    }
+
+    @media (min-width: 1024px) {
+      font-size:4rem
+    }
+  }
+</style>

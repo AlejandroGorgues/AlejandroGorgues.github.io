@@ -1,0 +1,18 @@
+---
+import type { Project } from "../types/models/portfolioEntry.interface";
+interface Props {
+  frontmatter: Project;
+}
+
+const { frontmatter } = Astro.props;
+---
+<section class="rich-text" style="max-width: 100ch;">
+  <header>
+    <h2 style="opacity: .90;">{frontmatter.title}</h2>
+  </header>
+  <div>
+    <a href={frontmatter.source}>Source code</a>
+    <a href={frontmatter.demo}>Demo</a>
+  </div>
+  <slot />
+</section>
