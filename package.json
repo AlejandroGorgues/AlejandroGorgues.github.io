@@ -2,8 +2,8 @@
   "name": "portfolio",
   "version": "1.0.0",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "export NODE_ENV=development && astro dev",
+    "build": "export NODE_ENV=production && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },

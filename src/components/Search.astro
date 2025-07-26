@@ -1,6 +1,6 @@
 ---
 // Heavy inspiration taken from Astro Starlight -> https://github.com/withastro/starlight/blob/main/packages/starlight/components/Search.astro
-import SearchButton from '../assets/icons/search.svg'
+import SearchButton from '../assets/icons/isearch.svg'
 // import  "@pagefind/default-ui/css/ui.css"
 
 import "../styles/search.css";
@@ -15,8 +15,8 @@ import "../styles/search.css";
 		<div class="dialog-frame">
 			<button class="dialog-button" data-close-modal>Close</button>
 			{
-				// import.meta.env.DEV ? (
-				false ? (
+				import.meta.env.NODE_ENV ? (
+				// false ? (
 					<div class="dialog-search-container_pre">
 						<p>
 							Search is only available in production builds. <br />
@@ -72,7 +72,7 @@ import "../styles/search.css";
 			}
 
 			// only add pagefind in production
-			// if (import.meta.env.DEV) return;
+			if (import.meta.env.NODE_ENV) return;
 			const onIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
 			onIdle(async () => {
 				const { PagefindUI } = await import("@pagefind/default-ui");
