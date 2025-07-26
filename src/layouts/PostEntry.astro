@@ -28,7 +28,7 @@ const { url, title, description, date, modDate, image } = Astro.props;
         </h2>
     </div>
     <PortfolioDate date={date} modDate={modDate}/>
-    <Markdown content={description} sanitize={{ allowComponents: true }} components={{PostDescription}} />
+    {description && <Markdown content={description} sanitize={{ allowComponents: true }} components={{PostDescription}} />}
 </section>
 
 <style lang="scss">
