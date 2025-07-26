@@ -15,7 +15,7 @@ import "../styles/search.css";
 		<div class="dialog-frame">
 			<button class="dialog-button" data-close-modal>Close</button>
 			{
-				import.meta.env.NODE_ENV ? (
+				import.meta.env.NODE_ENV ==='development' ? (
 				// false ? (
 					<div class="dialog-search-container_pre">
 						<p>
@@ -72,7 +72,7 @@ import "../styles/search.css";
 			}
 
 			// only add pagefind in production
-			if (import.meta.env.NODE_ENV) return;
+			if (import.meta.env.NODE_ENV === 'development') return;
 			const onIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
 			onIdle(async () => {
 				const { PagefindUI } = await import("@pagefind/default-ui");
