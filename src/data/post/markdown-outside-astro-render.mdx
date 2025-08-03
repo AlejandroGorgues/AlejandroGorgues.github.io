@@ -1,0 +1,74 @@
+---
+title: Markdown outside astro render
+pubDate: 2025-08-03
+modDate: 2025-08-03
+image:
+    url: '/post/AstroLogo.svg'
+    alt: 'AstroLogo'
+tags: ["Astro", "Markdown"]
+---
+
+Astro works easily with [markdown files](https://docs.astro.build/en/guides/markdown-content/). You just need to define some frontmatter data to identify metadata for each item, 
+and write the main content to be rendered in the body of the file.
+
+However, what if you want to render part of the frontmatter data as Markdown as well?. For example, say you have a list of blog posts and want to display not just the main content, 
+but also a Markdown-formatted description. 
+Since this description comes from a data source that Astro doesn't automatically render as Markdown, it's treated as plain text.
+
+Thanks to the modularization architecture of Astro, through the post written by [James Midzi](https://dantedecodes.vercel.app/articles/rendering-external-markdown-in-astro-46oj/),
+I found out [astro-remote](https://github.com/natemoo-re/astro-remote).
+
+**Astro-remote** is a small utility that lets you render arbitrary Markdown content with full control, much like you would with components on a page.
+
+For my case, if I want to render a post's description just like its main content, all I need to do is use the `<Markdown>` component
+and thats it!
+```jsx
+---
+import {Markdown } from "astro-remote";
+---
+//...//
+{description && <Markdown content={description}/>}
+//...//
+```
+The main problem was solved, but a second one appeared.
+
+As text might contain inline code, and because standard Markdown doesn't style it by default, 
+I needed to apply custom CSS to make it look properly formatted. 
+The problem was that the CSS styles relied on specific tags, classes, or IDs, which weren't present in the rendered output,
+requiring to create a convoluted CSS selectors or modifying the DOM after rendering — neither of which was ideal.
+
+However, from many of the cool features of the **astro-remote** libray, one of them is the possibility of modifying the markdown render output through
+an Astro component.
+
+1. First, I changed the markdown to be able to pass the output into a custom component (remember to enable component integration through the **satinize** property).
+```jsx
+---
+import {Markdown } from "astro-remote";
+import PostDescription from "../components/PostDescription.astro";
+---
+//...//
+{description && <Markdown content={description} sanitize={{ allowComponents: true }} components={{PostDescription}} />}
+//...//
+```
+2. Then inside the frontmatter attribute I included the text inside the tag.
+```markdown
+description: <PostDescription>On my blog development...</PostDescription>
+```
+3. And at the end, I created the component.
+```astro
+---
+---
+<div >
+    <p class="rich-text">
+        <slot />
+    </p>
+</div>
+<style>
+p:empty {
+  display: none;
+}
+</style>
+```
+> The `p:empty` condition is added due to remove the double `p` tag that Astro generate to render it, which hinders the solution.
+<br />
+> For the case, it might be an overkill, but for the time, was the one that gives the easiest implementation.

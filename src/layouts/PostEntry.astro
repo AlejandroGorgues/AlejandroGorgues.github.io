@@ -1,9 +1,7 @@
 ---
-import {Markdown } from "astro-remote";
 import PortfolioDate from "../components/PortfolioDate.astro";
 import TextLink from "../components/TextLink.astro";
 import CategoryLogo from "../components/CategoryLogo.astro";
-import PostDescription from "../components/PostDescription.astro";
 
 interface imageObj {
   url:string;
@@ -13,22 +11,20 @@ interface imageObj {
 interface Props {
   url:string;
   title:string;
-  description:string;
   date:Date;
   modDate:Date;
   image: imageObj;
 }
-const { url, title, description, date, modDate, image } = Astro.props;
+const { url, title, date, modDate, image } = Astro.props;
 ---
 <section style="padding: 0.5lh; display: flex; flex-direction:column; gap: 0.25lh; ">
     <div style="display: flex; flex-direction: row; align-items: center; gap:.5lh">
         <CategoryLogo src={image.url} class="logo" />
-        <h2 style="margin: 0; padding: 0; font-weight: 700; opacity: .90;">
+        <h3 style="margin: 0; padding: 0; font-weight: 700; opacity: .90;">
             <TextLink url={url} title={title}/>
-        </h2>
+        </h3>
     </div>
     <PortfolioDate date={date} modDate={modDate}/>
-    {description && <Markdown content={description} sanitize={{ allowComponents: true }} components={{PostDescription}} />}
 </section>
 
 <style lang="scss">
@@ -42,6 +38,6 @@ section:hover {
 
 .logo {
   width:10%;
-  height:75px;
+  height:2lh;
 }
 </style>

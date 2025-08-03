@@ -4,7 +4,6 @@ export interface Post {
     title: string;
     pubDate: Date;
     modDate: Date;
-    description?: string;
     image: Image;
     tags: string[];
 }
